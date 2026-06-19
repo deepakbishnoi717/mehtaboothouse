@@ -8,7 +8,6 @@ import {
 import MehtaLogo from "./components/MehtaLogo";
 import ThreeDCarousel from "./components/ThreeDCarousel";
 import EnquiryForm from "./components/EnquiryForm";
-import InstagramFeed from "./components/InstagramFeed";
 import AdminPanel from "./components/AdminPanel";
 import { ThemeProvider, useTheme } from "./components/ThemeContext";
 import { ShoeCategory, SpecialOffer } from "./types";
@@ -70,15 +69,6 @@ const SHOE_CATEGORIES: ShoeCategory[] = [
     badge: "₹199 START"
   },
   {
-    id: "cat_ladies",
-    name: "Ladies Footwear",
-    slug: "ladies-footwear",
-    description: "Premium block heels, ethnic flat sandals, daily slides & pumps.",
-    imageUrl: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=600&auto=format&fit=crop",
-    count: "55",
-    badge: "BAG FREE ON 3"
-  },
-  {
     id: "cat_kids",
     name: "Kids Footwear",
     slug: "kids-footwear",
@@ -118,15 +108,6 @@ const SPECIAL_OFFERS: SpecialOffer[] = [
     offerPrice: "1199",
     badge: "85% OFF TAG",
     saving: "Saves ₹6500"
-  },
-  {
-    id: "off4",
-    title: "Ladies Slippers Sparkle Bargain",
-    priceTag: "₹199 / Buy 3 Get Bag Free",
-    details: "Vibrant ethnic sandals, daily sleepers, and block slides at ₹199 each. Buy any 3 pairs and claim a premium accessory makeup pouch completely free!",
-    offerPrice: "199",
-    badge: "FESTIVE SALE",
-    saving: "B3G1 Offer"
   }
 ];
 
@@ -384,16 +365,14 @@ function MainAppLayout() {
             </div>
 
             <h1 className="hero-text font-black italic text-white uppercase tracking-tighter leading-none">
-              MEHTA<br />
-              <span className="text-[#ff6b00]">BOOT</span><br />
-              HOUSE
+              MEHTA <span className="text-[#ff6b00]">BOOT</span> HOUSE
             </h1>
 
-            <p className="text-gray-400 text-sm sm:text-base leading-relaxed max-w-xl mx-auto lg:mx-0 font-light">
+            <p className="text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed max-w-xl mx-auto lg:mx-0 font-light px-2 sm:px-0">
               Elevate your footwear aesthetics. Offering Tohana's finest inventory of running trainers, hand-burnished formal Oxfords, and original Red Tape specials at unbeatable rates.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-6 justify-center lg:justify-start mt-8">
+            <div className="hidden sm:flex flex-col sm:flex-row items-stretch sm:items-center gap-6 justify-center lg:justify-start mt-8">
               <div className="border-l-2 border-[#ff6b00] pl-4 text-left">
                 <div className="text-[10px] text-gray-500 uppercase font-mono tracking-wider">Location</div>
                 <div className="text-sm text-white font-medium">Naya Bazar, Tohana, Haryana</div>
@@ -405,12 +384,12 @@ function MainAppLayout() {
             </div>
 
             {/* CTA action buttons */}
-            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start pt-4">
+            <div className="flex flex-col sm:flex-row items-center gap-3.5 justify-center lg:justify-start pt-2 px-4 sm:px-0">
               <a
                 href="tel:7876624340"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-[#ff6b00] text-white font-extrabold uppercase tracking-widest text-xs md:text-sm rounded-sm transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,107,0,0.4)] active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 bg-[#ff6b00] text-white font-extrabold uppercase tracking-widest text-xs rounded-sm transition-transform duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(255,107,0,0.4)] active:scale-95 cursor-pointer"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-3.5 h-3.5" />
                 Call Store Now
               </a>
 
@@ -418,14 +397,14 @@ function MainAppLayout() {
                 href="https://wa.me/917876624340?text=Hello%20Mehta%20Boot%20House!%20I%20am%20visiting%20your%2520website%20and%20want%2520to%20enquire%20about%20footwear%20sizes%20&%20offers."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 border border-white/20 hover:border-white text-white hover:bg-white hover:text-black font-extrabold uppercase tracking-widest text-xs md:text-sm rounded-sm transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 border border-white/20 hover:border-white text-white hover:bg-white hover:text-black font-extrabold uppercase tracking-widest text-xs rounded-sm transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer"
               >
-                <Smartphone className="w-4 h-4 text-emerald-550" />
+                <Smartphone className="w-3.5 h-3.5 text-emerald-550" />
                 WhatsApp Enquiry
               </a>
             </div>
 
-            <div className="pt-2 flex items-center gap-6 justify-center lg:justify-start text-xxs font-mono text-gray-500">
+            <div className="hidden sm:flex pt-2 items-center gap-6 justify-center lg:justify-start text-xxs font-mono text-gray-500">
               <span className="flex items-center gap-1">✓ Prime Location</span>
               <span className="flex items-center gap-1">✓ Expert Fitting</span>
               <span className="flex items-center gap-1">✓ Parking Available</span>

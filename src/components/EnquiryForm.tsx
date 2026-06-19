@@ -194,7 +194,6 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
               <option value="Sneakers">Sneakers</option>
               <option value="Boots">Boots</option>
               <option value="Slippers/Sleepers">Slippers / Sliders</option>
-              <option value="Ladies Footwear">Ladies Footwear</option>
               <option value="Kids Footwear">Kids Footwear</option>
             </select>
           </div>
