@@ -462,19 +462,6 @@ function MainAppLayout() {
                 <div className="text-lg sm:text-xl font-black text-[#ffd700]">₹1,299</div>
               </div>
 
-              {/* Card 3: Bottom Right */}
-              <div 
-                onClick={() => {
-                  setSelectedCategoryName("Ladies Handbags / Footwear");
-                  handleScrollToEnquiry("ladies-footwear");
-                }}
-                className="absolute bottom-1/4 right-0 translate-x-[35%] sm:translate-x-1/2 shoe-card p-3 sm:p-4 w-36 sm:w-40 text-center cursor-pointer select-none z-10"
-              >
-                <div className="text-[10px] text-gray-400 font-mono">Ladies Slipper</div>
-                <div className="text-xs sm:text-sm font-black text-white mt-1">Buy 3 Get Bag</div>
-                <div className="text-[9px] text-[#ff6b00] font-semibold mt-1">FESTIVE PROMO</div>
-              </div>
-
               {/* Card 4: Bottom Center */}
               <div 
                 onClick={() => {

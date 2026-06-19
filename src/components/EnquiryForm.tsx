@@ -204,15 +204,28 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
             <label htmlFor="enquiry-brand" className="block text-xs font-bold text-gray-400 mb-1.5 uppercase font-mono tracking-wider">
               Preferred Brand (Optional)
             </label>
-            <input
+            <select
               id="enquiry-brand"
-              type="text"
               name="brand"
               value={formData.brand}
               onChange={handleChange}
-              placeholder="e.g., Red Tape, Sparx"
-              className="w-full bg-black border border-white/10 text-sm text-white rounded-sm px-4 py-3 placeholder:text-gray-700 focus:outline-none focus:border-gold"
-            />
+              className="w-full bg-black border border-white/10 text-sm text-white rounded-sm px-3.5 py-3 focus:outline-none focus:border-gold appearance-none cursor-pointer"
+            >
+              <option value="">Choose Brand</option>
+              <option value="Red Tape">Red Tape</option>
+              <option value="Sparx">Sparx</option>
+              <option value="Campus">Campus</option>
+              <option value="Relaxo">Relaxo</option>
+              <option value="Action">Action</option>
+              <option value="Goldstar">Goldstar</option>
+              <option value="Bata">Bata</option>
+              <option value="Abros">Abros</option>
+              <option value="Lakhani">Lakhani</option>
+              <option value="Nike">Nike</option>
+              <option value="Puma">Puma</option>
+              <option value="Adidas">Adidas</option>
+              <option value="Other">Other / Local brand</option>
+            </select>
           </div>
 
           {/* Requested Size */}
@@ -227,14 +240,14 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
               onChange={handleChange}
               className="w-full bg-black border border-white/10 text-sm text-white rounded-sm px-3.5 py-3 focus:outline-none focus:border-gold appearance-none cursor-pointer"
             >
-              <option value="">Choose UK/India Size</option>
-              <option value="UK 5">UK 5 (EU 38)</option>
-              <option value="UK 6">UK 6 (EU 39)</option>
-              <option value="UK 7">UK 7 (EU 41)</option>
-              <option value="UK 8">UK 8 (EU 42)</option>
-              <option value="UK 9">UK 9 (EU 43)</option>
-              <option value="UK 10">UK 10 (EU 44)</option>
-              <option value="UK 11">UK 11 (EU 45)</option>
+              <option value="">Choose India Size</option>
+              <option value="India 5">India 5 (EU 38)</option>
+              <option value="India 6">India 6 (EU 39)</option>
+              <option value="India 7">India 7 (EU 41)</option>
+              <option value="India 8">India 8 (EU 42)</option>
+              <option value="India 9">India 9 (EU 43)</option>
+              <option value="India 10">India 10 (EU 44)</option>
+              <option value="India 11">India 11 (EU 45)</option>
               <option value="Kids (Specify in note)">Kids sizing (custom)</option>
             </select>
           </div>
