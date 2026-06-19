@@ -1,0 +1,6 @@
+{
+  "name": "Mehta Boot House",
+  "description": "A modern luxury shoe and footwear showcase website for Mehta Boot House (Tohana), featuring scrolling collections, custom 3D categories, active rotating offers, and automated n8n webhook integrations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,110 @@
+@import "tailwindcss";
+
+@theme {
+  --animate-spin-slow: rotate 40s linear infinite;
+  --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --color-gold: #ffd700;
+  --color-accent: #ff6b00;
+  --font-serif: "Playfair Display", Georgia, serif;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(255, 107, 0, 0.3); }
+  50% { box-shadow: 0 0 35px rgba(255, 107, 0, 0.5), 0 0 55px rgba(255, 215, 0, 0.3); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Custom extra utilities for Artistic Flair */
+.animate-spin-slow {
+  animation: rotate 45s linear infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Scrollbar customizations */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(10, 10, 10, 0.9);
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(255, 107, 0, 0.3);
+  border-radius: 9px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 107, 0, 0.6);
+}
+
+.bg-radial {
+  background-image: radial-gradient(var(--tw-gradient-stops));
+}
+
+.font-sans {
+  font-family: 'Helvetica Neue', Arial, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.text-xxs {
+  font-size: 0.65rem;
+}
+.text-xxxs {
+  font-size: 0.55rem;
+}
+
+/* Artistic Flair classes */
+.gold-glow {
+  box-shadow: 0 0 20px rgba(255, 107, 0, 0.3);
+}
+
+.gold-glow-strong {
+  box-shadow: 0 10px 30px rgba(255, 107, 0, 0.4);
+}
+
+.hero-text {
+  font-size: clamp(3rem, 10vw, 8.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+}
+
+.circle-carousel {
+  width: min(500px, 90vw);
+  height: min(500px, 90vw);
+  position: relative;
+  border: 1px dashed rgba(255, 107, 0, 0.3);
+  border-radius: 50%;
+}
+
+.shoe-card {
+  position: absolute;
+  background: #111111;
+  border: 1px solid rgba(255, 215, 0, 0.3);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.shoe-card:hover {
+  border-color: #ffd700;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(255, 107, 0, 0.4);
+}
+
