@@ -433,8 +433,8 @@ function MainAppLayout() {
           </div>
 
           {/* Hero Circular revolving mock shoe graphics WITH DESIGN CARDS */}
-          <div className="lg:col-span-5 flex items-center justify-center relative min-h-[460px] md:min-h-[500px] py-10">
-            <div className="circle-carousel flex items-center justify-center scale-[0.8] sm:scale-100 transition-all">
+          <div className="lg:col-span-5 flex items-center justify-center relative min-h-[380px] sm:min-h-[460px] md:min-h-[500px] py-6 sm:py-10">
+            <div className="circle-carousel flex items-center justify-center">
               
               {/* Card 1: Top Center */}
               <div 

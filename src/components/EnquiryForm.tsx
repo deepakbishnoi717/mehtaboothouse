@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Send, CheckCircle2, Settings, Smartphone, ArrowRight, Activity, Sparkles } from "lucide-react";
+import { Send, CheckCircle2, Smartphone, Sparkles } from "lucide-react";
 
 interface EnquiryFormProps {
   onSuccessSubmit?: (enquiry: any) => void;
@@ -17,17 +17,9 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
     message: "",
   });
 
-  // Client and Server Integrations
-  const [customWebhook, setCustomWebhook] = useState(() => {
-    return localStorage.getItem("mehta-custom-webhook") || "";
-  });
-  const [showWebhookConfig, setShowWebhookConfig] = useState(false);
-  const [testStatus, setTestStatus] = useState<"idle" | "testing" | "success" | "error">("idle");
-  const [testResultMsg, setTestResultMsg] = useState("");
-
   // Submission process state
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [statusMsg, setStatusMsg] = useState({ type: "", text: "", webhookStatus: "" });
+  const [statusMsg, setStatusMsg] = useState({ type: "", text: "" });
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
 
   // Sync default values when category selected
@@ -43,42 +35,6 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
     // Clear validation error if typing
     if (validationErrors[name]) {
       setValidationErrors((prev) => ({ ...prev, [name]: "" }));
-    }
-  };
-
-  const handleSaveWebhook = (e: React.FormEvent) => {
-    e.preventDefault();
-    localStorage.setItem("mehta-custom-webhook", customWebhook);
-    setShowWebhookConfig(false);
-  };
-
-  const testWebhookConnection = async () => {
-    if (!customWebhook) {
-      setTestStatus("error");
-      setTestResultMsg("Please provide a valid URL to test.");
-      return;
-    }
-    setTestStatus("testing");
-    setTestResultMsg("Sending test payload to n8n...");
-
-    try {
-      const response = await fetch("/api/test-webhook", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ url: customWebhook }),
-      });
-
-      const resData = await response.json();
-      if (response.ok) {
-        setTestStatus("success");
-        setTestResultMsg("n8n responded beautifully! Workflow is active & ready.");
-      } else {
-        setTestStatus("error");
-        setTestResultMsg(resData.error || "Connection refused by n8n or invalid triggers.");
-      }
-    } catch (err: any) {
-      setTestStatus("error");
-      setTestResultMsg(`Network error: ${err.message || "Failed to contact proxy link"}`);
     }
   };
 
@@ -100,12 +56,11 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
     if (!validateForm()) return;
 
     setIsSubmitting(true);
-    setStatusMsg({ type: "", text: "", webhookStatus: "" });
+    setStatusMsg({ type: "", text: "" });
 
     try {
       const payload = {
         ...formData,
-        customWebhookUrl: customWebhook || undefined,
       };
 
       const response = await fetch("/api/enquire", {
@@ -120,7 +75,6 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
         setStatusMsg({
           type: "success",
           text: `Thank you, ${formData.name}! Your enquiry for ${formData.shoeType} has been secured. Anil Mehta will contact you shortly.`,
-          webhookStatus: resData.webhookStatus,
         });
         
         // Zero out form details but preserve shoeType
@@ -140,14 +94,12 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
         setStatusMsg({
           type: "error",
           text: resData.error || "Oops! Something went wrong committing your enquiry.",
-          webhookStatus: "",
         });
       }
     } catch (error: any) {
       setStatusMsg({
         type: "error",
         text: `Network failure: ${error.message || "Could not reach the server. Please try again."}`,
-        webhookStatus: "",
       });
     } finally {
       setIsSubmitting(false);
@@ -170,82 +122,7 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
             Send an instant request. Perfect fit sizes & direct pricing answers.
           </p>
         </div>
-
-        {/* Integration Config Toggle */}
-        <button
-          onClick={() => setShowWebhookConfig(!showWebhookConfig)}
-          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-sm border text-xs font-mono font-semibold transition-all ${
-            showWebhookConfig 
-              ? "bg-[#ff6b00] text-white border-[#ff6b00]" 
-              : "bg-black text-slate-400 border-white/10 hover:text-white"
-          }`}
-          title="Configure automation settings"
-        >
-          <Settings className="w-3.5 h-3.5 animate-spin-slow" />
-          <span className="hidden sm:inline">Webhook Integrations</span>
-        </button>
       </div>
-
-      {/* Webhook Configuration Panel Drawer */}
-      {showWebhookConfig && (
-        <div className="mb-6 p-4 rounded-lg bg-black border border-[#ff6b00]/20 text-slate-300 animate-fadeIn duration-200">
-          <div className="flex items-center gap-2 mb-3">
-            <Activity className="w-4 h-4 text-[#ff6b00] animate-pulse" />
-            <h4 className="text-sm font-bold text-white font-mono uppercase">n8n Custom Workflow Automation</h4>
-          </div>
-          <p className="text-xs text-gray-400 mb-4 leading-relaxed">
-            Link a real-time n8n Active Webhook payload handler. Submissions from this form will immediately post as JSON object events for Discord, SMS, or sheets dispatching!
-          </p>
-
-          <form onSubmit={handleSaveWebhook} className="space-y-4">
-            <div>
-              <label className="block text-[10px] uppercase font-mono tracking-wider text-gray-500 mb-1">
-                Webhook URL Endpoint
-              </label>
-              <div className="flex gap-2">
-                <input
-                  type="url"
-                  placeholder="https://n8n.myinstance.com/webhook/..."
-                  value={customWebhook}
-                  onChange={(e) => setCustomWebhook(e.target.value)}
-                  className="flex-1 bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-white focus:outline-none focus:border-amber-500 font-mono"
-                />
-                <button
-                  type="submit"
-                  className="bg-amber-500 text-black px-4 py-1.5 rounded-lg text-xs font-bold font-mono hover:bg-amber-400"
-                >
-                  Save URL
-                </button>
-              </div>
-            </div>
-
-            {customWebhook && (
-              <div className="flex items-center justify-between pt-2 border-t border-slate-900">
-                <button
-                  type="button"
-                  onClick={testWebhookConnection}
-                  disabled={testStatus === "testing"}
-                  className="px-3 py-1.5 bg-slate-900 border border-slate-800 hover:border-amber-500 text-white rounded-lg text-xs font-mono font-semibold transition-all flex items-center gap-1"
-                >
-                  {testStatus === "testing" ? "Testing..." : "Send Test Ping"}
-                </button>
-
-                {testStatus !== "idle" && (
-                  <span className={`text-xs font-mono px-2.5 py-1 rounded ${
-                    testStatus === "success" 
-                      ? "bg-emerald-500/15 text-emerald-400" 
-                      : testStatus === "error" 
-                      ? "bg-rose-500/15 text-rose-400" 
-                      : "text-slate-400 animate-pulse"
-                  }`}>
-                    {testResultMsg}
-                  </span>
-                )}
-              </div>
-            )}
-          </form>
-        </div>
-      )}
 
       {/* Primary enquiry intake form */}
       <form onSubmit={handleSubmit} className="space-y-5">
@@ -424,26 +301,6 @@ export default function EnquiryForm({ onSuccessSubmit, selectedDefaultType = "" 
               )}
               <span className="text-xs md:text-sm font-light">{statusMsg.text}</span>
             </div>
-
-            {/* n8n Status feedback badge */}
-            {statusMsg.type === "success" && (
-              <span className={`text-[10px] font-mono shrink-0 px-2.5 py-1 rounded-sm tracking-wider flex items-center gap-1 bg-black uppercase ${
-                statusMsg.webhookStatus === "success" 
-                  ? "border border-emerald-500/20 text-emerald-400" 
-                  : statusMsg.webhookStatus === "not_configured" 
-                  ? "border border-white/10 text-gray-500" 
-                  : "border border-[#ff6b00]/25 text-[#ff6b00]"
-              }`}>
-                <span className={`w-1.5 h-1.5 rounded-full inline-block ${
-                  statusMsg.webhookStatus === "success" 
-                    ? "bg-emerald-400 animate-ping" 
-                    : statusMsg.webhookStatus === "not_configured" 
-                    ? "bg-slate-700" 
-                    : "bg-[#ff6b00] animate-pulse"
-                }`} />
-                n8n Webhook: {statusMsg.webhookStatus.replace(/_/, " ")}
-              </span>
-            )}
           </div>
         )}
       </form>
